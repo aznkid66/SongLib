@@ -39,8 +39,8 @@
 								<Insets top="5" right="5" bottom="5" left="5" />
 							</padding>
 							<buttons>
-								<Button text="+" />
-								<Button text="-" />
+								<Button fx:id="add" text="+" />
+								<Button fx:id="delete" text="-" />
 							</buttons>
 						</ButtonBar>
 
@@ -55,23 +55,25 @@
 						<TextField fx:id="detailName"></TextField>
 						<Label text="Artist: " />
 						<TextField fx:id="detailArtist"></TextField>
+						<StackPane>
 						<ButtonBar fx:id="editButton">
 							<padding>
 								<Insets top="5" right="5" bottom="5" left="5" />
 							</padding>
 							<buttons>
-								<Button text="Edit" />
+								<Button fx:id="edit" text="Edit" />
 							</buttons>
 						</ButtonBar>
-						<ButtonBar fx:id="editToolbar">
+						<ButtonBar fx:id="editToolbar" visible="false">
 							<padding>
 								<Insets top="5" right="5" bottom="5" left="5" />
 							</padding>
 							<buttons>
-								<Button text="Save" />
-								<Button text="Cancel" />
+								<Button fx:id="save" text="Save" />
+								<Button fx:id="cancel" text="Cancel" />
 							</buttons>
 						</ButtonBar>
+						</StackPane>
 					</children>
 				</VBox>
 
