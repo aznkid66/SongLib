@@ -1,6 +1,7 @@
 package view;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
@@ -53,10 +54,32 @@ public class ListController {
 				  showItem(mainStage));
 		
 		// set listeners for buttons
-		ButtonListeners.attachAddListener(add, add, delete, listView, detailBox, editButton, editToolbar);
-		ButtonListeners.attachSaveListener(save, add, delete, listView, detailName, detailArtist, editButton, editToolbar, ol, sl);
-		save.disableProperty().bind(Bindings.and(detailName.textProperty().isEmpty(), detailArtist.textProperty().isEmpty()));
-		ButtonListeners.attachDeleteListener(delete, listView, ol, sl);
+		ButtonListeners.attachAddListener(add, 
+				add, delete, 
+				listView, 
+				detailBox, 
+				editButton, editToolbar);
+		ButtonListeners.attachDeleteListener(delete, 
+				listView, 
+				detailBox,
+				editButton,
+				ol, sl);
+		ButtonListeners.attachEditListener(edit,
+				detailBox,
+				ol, sl);
+		listView.disableProperty().bind(
+				listView.getSelectionModel().
+					selectedIndexProperty().
+						isEqualTo(-1));
+		ButtonListeners.attachSaveListener(save, 
+				add, delete, 
+				listView, 
+				detailName, detailArtist, 
+				editButton, editToolbar, 
+				ol, sl);
+		save.disableProperty().bind(
+				detailName.textProperty().isEmpty().or(
+				detailArtist.textProperty().isEmpty()));
 	}
 
 	private void showItem(Stage mainStage) {

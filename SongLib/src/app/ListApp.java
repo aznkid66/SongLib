@@ -23,6 +23,7 @@ public class ListApp extends Application {
 	      listController.start(primaryStage);
 
 	      Scene scene = new Scene(root);
+	      primaryStage.setTitle("Song Library");
 	      primaryStage.setScene(scene);
 	      primaryStage.show(); 
 	}
