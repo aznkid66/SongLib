@@ -1,5 +1,6 @@
 package view;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
@@ -54,6 +55,7 @@ public class ListController {
 		// set listeners for buttons
 		ButtonListeners.attachAddListener(add, add, delete, listView, detailBox, editButton, editToolbar);
 		ButtonListeners.attachSaveListener(save, add, delete, listView, detailName, detailArtist, editButton, editToolbar, ol, sl);
+		save.disableProperty().bind(Bindings.and(detailName.textProperty().isEmpty(), detailArtist.textProperty().isEmpty()));
 		ButtonListeners.attachDeleteListener(delete, listView, ol, sl);
 	}
 
