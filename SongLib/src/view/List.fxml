@@ -8,49 +8,73 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-	minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1"
+<VBox maxHeight="Infinity" maxWidth="Infinity" 
+	minHeight="-Infinity" minWidth="-Infinity" 
+	xmlns="http://javafx.com/javafx/8.0.40" 
+	xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="view.ListController">
+	<padding>
+		<Insets top="5" right="5" bottom="5" left="5" />
+	</padding>
 	<children>
 		<HBox>
 			<children>
-				<StackPane HBox.hgrow="ALWAYS">
-					<VBox>
-						<children>
-							<StackPane VBox.vgrow="ALWAYS" />
-							<StackPane VBox.vgrow="ALWAYS">
-								<padding>
-									<Insets top="5" right="5" bottom="5" left="5" />
-								</padding>
-								<VBox>
-									<ListView fx:id="listView" />
-								</VBox>
-							</StackPane>
-							<StackPane VBox.vgrow="ALWAYS">
-								<padding>
-									<Insets top="5" right="5" bottom="5" left="5" />
-								</padding>
-								<ButtonBar>
-									<buttons>
-										<Button text="+" />
-										<Button text="-" />
-										<Button text="Edit" />
-									</buttons>
-								</ButtonBar>
-							</StackPane>
-						</children>
-					</VBox>
-				</StackPane>
-				<StackPane HBox.hgrow="ALWAYS">
-					<VBox>
+				<VBox>
+					<padding>
+						<Insets top="5" right="5" bottom="5" left="5" />
+					</padding>
 					<children>
-						<Label text="Name: "/>
-						<Text fx:id="detailName"> [Song Name] </Text>
+
+						<VBox>
+
+							<ListView fx:id="listView" />
+						</VBox>
+
+
+						<ButtonBar>
+							<padding>
+								<Insets top="5" right="5" bottom="5" left="5" />
+							</padding>
+							<buttons>
+								<Button text="+" />
+								<Button text="-" />
+							</buttons>
+						</ButtonBar>
+
 					</children>
-					</VBox>
-				</StackPane>
+				</VBox>
+				<VBox fx:id="detailBox">
+					<padding>
+						<Insets top="5" right="5" bottom="5" left="5" />
+					</padding>
+					<children>
+						<Label text="Name: " />
+						<TextField fx:id="detailName"></TextField>
+						<Label text="Artist: " />
+						<TextField fx:id="detailArtist"></TextField>
+						<ButtonBar fx:id="editButton">
+							<padding>
+								<Insets top="5" right="5" bottom="5" left="5" />
+							</padding>
+							<buttons>
+								<Button text="Edit" />
+							</buttons>
+						</ButtonBar>
+						<ButtonBar fx:id="editToolbar">
+							<padding>
+								<Insets top="5" right="5" bottom="5" left="5" />
+							</padding>
+							<buttons>
+								<Button text="Save" />
+								<Button text="Cancel" />
+							</buttons>
+						</ButtonBar>
+					</children>
+				</VBox>
+
 			</children>
 		</HBox>
 	</children>
