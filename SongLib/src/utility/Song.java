@@ -7,7 +7,8 @@ public class Song {
 
 		@Override
 		public int compare(Song o1, Song o2) {
-			return o1.name.compareTo(o2.name);
+			return o1.name.toLowerCase().
+					compareTo(o2.name.toLowerCase());
 		}
 		
 	}
