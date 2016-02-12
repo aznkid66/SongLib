@@ -66,6 +66,7 @@ public class ListController {
 				ol, sl);
 		ButtonListeners.attachEditListener(edit,
 				detailBox,
+				editButton, editToolbar,
 				ol, sl);
 		listView.disableProperty().bind(
 				listView.getSelectionModel().

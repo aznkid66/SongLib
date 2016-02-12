@@ -50,6 +50,7 @@ public class ButtonListeners {
 					editButton.setVisible(false);
 				}
 			}
+			
 		});
 	}
 	
@@ -64,8 +65,20 @@ public class ButtonListeners {
 
 	public static void attachEditListener(Button b,
 			VBox detailBox,
+			ButtonBar editButton, ButtonBar editToolbar,
 			ObservableList<Song> ol, SortedList<Song> sl) {
 	
+		b.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent e) {
+				for (Node detail : detailBox.getChildren()) {
+					if (detail instanceof TextField) {
+						((TextField)detail).setEditable(true);
+					}
+				}
+				editButton.setVisible(false);
+				editToolbar.setVisible(true);
+			}
+		});
 	}
 	
 	public static void attachSaveListener(Button b, 
@@ -76,11 +89,15 @@ public class ButtonListeners {
 			ObservableList<Song> ol, SortedList<Song> sl) {
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				if (listView.getSelectionModel().getSelectedIndex()!=-1) {
-					deleteSelected(listView, ol, sl);
+				Song s;
+				if (listView.getSelectionModel().getSelectedIndex()==-1) {
+					s = new Song(detailName.getText(), detailArtist.getText());
+					ol.add(s);
+				} else {
+					s = sl.get(listView.getSelectionModel().getSelectedIndex());
+					s.name = detailName.getText();
+					s.artist = detailArtist.getText();
 				}
-				Song s = new Song(detailName.getText(), detailArtist.getText());
-				ol.add(s);;
 
 				listView.getSelectionModel().clearAndSelect(sl.indexOf(s));
 //				listView.setDisable(false);
