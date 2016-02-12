@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ListView;
@@ -15,6 +16,8 @@ import javafx.stage.Stage;
 import utility.Song;
 
 public class ListController {
+	private static final String SONGS_FILE = "src/data/songs.csv";
+	
 	Song selectedSong;
 	@FXML ListView<Song> listView;
 	
@@ -38,14 +41,11 @@ public class ListController {
 	public void start(Stage mainStage) throws Exception {
 		// init empty ObservableList
 		ol = FXCollections.observableArrayList();
-		ol.add(new Song("Jesus of Suburbia", "Greenday"));
+		ol.addAll(utility.FileIO.getSongs(SONGS_FILE));
+//		ol.add(new Song("Jesus of Suburbia", "Greenday"));
 		SortedList<Song> sl = new SortedList<Song>(ol, new Song.Compare());
 		listView.setItems(sl);
-		ol.add(new Song("Birdplane", "Axis of Awesome"));
-
-		// select the first item
-		listView.getSelectionModel().clearAndSelect(0);
-		showItem(mainStage);
+//		ol.add(new Song("Birdplane", "Axis of Awesome"));
 
 		// set listener for the items
 		listView
@@ -101,9 +101,28 @@ public class ListController {
 					// name required before save
 				detailArtist.textProperty().isEmpty()));
 					// artist required before save
+		
+		
+		
+		if (sl.isEmpty()) {
+			// disable delete button
+			delete.setDisable(true);
+			for (Node detail : detailBox.getChildren()) {
+				if (detail instanceof TextField) {
+					((TextField)detail).clear();
+				}
+			}
+			editButton.setVisible(false);
+		} else {
+			// select the first item
+			listView.getSelectionModel().clearAndSelect(0);
+		}
+		showItem(mainStage);
 	}
 
 	private void showItem(Stage mainStage) {
+		utility.FileIO.saveSongs(SONGS_FILE, ol);
+		
 		Song selectedSong = listView.getSelectionModel().getSelectedItem();
 		if (null!=selectedSong) {
 			detailName.setText(selectedSong.name);

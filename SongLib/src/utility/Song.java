@@ -2,6 +2,8 @@ package utility;
 
 import java.util.Comparator;
 
+import javafx.fxml.FXML;
+
 public class Song {
 	public static class Compare implements Comparator<Song> {
 
@@ -12,6 +14,7 @@ public class Song {
 		}
 		
 	}
+	
 	public String name;
 	public String artist;
 	public String album;
@@ -33,5 +36,9 @@ public class Song {
 	
 	public String toString() {
 		return name;
+	}
+	
+	public String toCsvRow() {
+		return String.join(",", name, artist, album, year)+"\n";
 	}
 }
