@@ -42,7 +42,7 @@ public class ListController {
 		ol.add(new Song("Birdplane", "Axis of Awesome"));
 
 		// select the first item
-		listView.getSelectionModel().select(0);
+		listView.getSelectionModel().clearAndSelect(0);
 		showItem(mainStage);
 
 		// set listener for the items
@@ -68,23 +68,36 @@ public class ListController {
 				detailBox,
 				editButton, editToolbar,
 				ol, sl);
-		detailName.editableProperty().bind(
-				editToolbar.visibleProperty());
-		detailArtist.editableProperty().bind(
-				editToolbar.visibleProperty());
-		listView.disableProperty().bind(
-				listView.getSelectionModel().
-					selectedIndexProperty().
-						isEqualTo(-1));
 		ButtonListeners.attachSaveListener(save, 
 				add, delete, 
 				listView, 
 				detailName, detailArtist, 
 				editButton, editToolbar, 
 				ol, sl);
-		save.disableProperty().bind(
-				detailName.textProperty().isEmpty().or(
+		ButtonListeners.attachCancelListener(cancel,
+				add, delete,
+				listView,
+				detailBox,
+				editButton, editToolbar,
+				ol, sl);
+		
+		// text-field-editable bindings
+		detailName.editableProperty().bind(
+				editToolbar.visibleProperty());
+		detailArtist.editableProperty().bind(
+				editToolbar.visibleProperty());
+		
+		// additional bindings
+		listView.disableProperty().bind(Bindings.or(
+				editToolbar.visibleProperty(),
+					// disabled when editing
+				delete.disabledProperty()));
+					// disabled when listView empty
+		save.disableProperty().bind(Bindings.or(
+				detailName.textProperty().isEmpty(),
+					// name required before save
 				detailArtist.textProperty().isEmpty()));
+					// artist required before save
 	}
 
 	private void showItem(Stage mainStage) {

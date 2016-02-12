@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import utility.Song;
 
@@ -89,14 +91,22 @@ public class ButtonListeners {
 			ObservableList<Song> ol, SortedList<Song> sl) {
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				// check if (name, artist) pair already exists
 				String name = detailName.getText();
 				String artist = detailArtist.getText();
-//				if (sl.filtered()) {
-//					
-//				}
+				// check if (name, artist) pair already exists
+				if (!sl.filtered(
+						(s) -> (s != listView.getSelectionModel().getSelectedItem()
+								&& s.name.equals(name) 
+								&& s.artist.equals(artist)))
+						.isEmpty()) {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setHeaderText("Duplicate Song");
+					alert.setContentText("The song name and song artist are the same as an existing song.");
+					alert.show();
+					return; // do not complete the add/edit
+				}
 				Song s;
-				if (listView.getSelectionModel().getSelectedIndex()==-1) {
+				if (listView.getSelectionModel().getSelectedItems().isEmpty()) {
 					s = new Song(name, artist);
 					ol.add(s);
 				} else {
@@ -115,6 +125,37 @@ public class ButtonListeners {
 				delete.setDisable(false);
 				editToolbar.setVisible(false);
 				editButton.setVisible(true);
+			}
+		});
+	}
+	
+	public static void attachCancelListener(Button b, 
+			Button add, Button delete, 
+			ListView<?> listView,
+			VBox detailBox,
+			ButtonBar editButton, ButtonBar editToolbar,
+			ObservableList<Song> ol, SortedList<Song> sl) {
+		b.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent e) {
+				Song s = (Song)listView.getSelectionModel().getSelectedItem();
+				if (null==s) {
+					clearFields(detailBox, false);
+					if (!sl.isEmpty())
+						listView.getSelectionModel().clearAndSelect(0);
+				} else {
+					ol.remove(s);
+					ol.add(s);
+					listView.getSelectionModel().clearAndSelect(sl.indexOf(s));
+				}
+				
+				add.setDisable(false);
+				if (!sl.isEmpty()) {
+					delete.setDisable(false);
+				}
+				editToolbar.setVisible(false);
+				if (!sl.isEmpty()) {
+					editButton.setVisible(true);
+				}
 			}
 		});
 	}
