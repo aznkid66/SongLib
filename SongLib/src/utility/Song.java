@@ -39,6 +39,6 @@ public class Song {
 	}
 	
 	public String toCsvRow() {
-		return String.join(",", name, artist, album, year)+"\n";
+		return String.join("\t", name, artist, album, year)+"\n";
 	}
 }
