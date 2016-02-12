@@ -8,7 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import view.ListController;
 
-public class ListApp extends Application {
+public class SongLib extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
