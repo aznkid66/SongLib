@@ -21,6 +21,8 @@ public class ListController {
 	@FXML VBox detailBox;	
 	@FXML TextField detailName;
 	@FXML TextField detailArtist;
+	@FXML TextField detailAlbum;
+	@FXML TextField detailYear;
 
 	@FXML ButtonBar editButton;
 	@FXML ButtonBar editToolbar;
@@ -72,6 +74,7 @@ public class ListController {
 				add, delete, 
 				listView, 
 				detailName, detailArtist, 
+				detailAlbum, detailYear,
 				editButton, editToolbar, 
 				ol, sl);
 		ButtonListeners.attachCancelListener(cancel,
@@ -104,9 +107,9 @@ public class ListController {
 		Song selectedSong = listView.getSelectionModel().getSelectedItem();
 		if (null!=selectedSong) {
 			detailName.setText(selectedSong.name);
-//			detailName.setEditable(false);
 			detailArtist.setText(selectedSong.artist);
-//			detailArtist.setEditable(false);
+			detailAlbum.setText(selectedSong.album);
+			detailYear.setText(selectedSong.year);
 		}
 	}
 }

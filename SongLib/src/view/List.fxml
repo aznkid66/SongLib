@@ -55,6 +55,10 @@
 						<TextField fx:id="detailName"></TextField>
 						<Label text="Artist: " />
 						<TextField fx:id="detailArtist"></TextField>
+						<Label text="Album: " />
+						<TextField fx:id="detailAlbum"></TextField>
+						<Label text="Year: " />
+						<TextField fx:id="detailYear"></TextField>
 						<StackPane>
 						<ButtonBar fx:id="editButton">
 							<padding>

@@ -86,13 +86,16 @@ public class ButtonListeners {
 	public static void attachSaveListener(Button b, 
 			Button add, Button delete, 
 			ListView<?> listView, 
-			TextField detailName, TextField detailArtist, 
+			TextField detailName, TextField detailArtist,
+			TextField detailAlbum, TextField detailYear,
 			ButtonBar editButton, ButtonBar editToolbar, 
 			ObservableList<Song> ol, SortedList<Song> sl) {
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
 				String name = detailName.getText();
 				String artist = detailArtist.getText();
+				String album = detailAlbum.getText();
+				String year = detailYear.getText();
 				// check if (name, artist) pair already exists
 				if (!sl.filtered(
 						(s) -> (s != listView.getSelectionModel().getSelectedItem()
@@ -107,13 +110,15 @@ public class ButtonListeners {
 				}
 				Song s;
 				if (listView.getSelectionModel().getSelectedItems().isEmpty()) {
-					s = new Song(name, artist);
+					s = new Song(name, artist, album, year);
 					ol.add(s);
 				} else {
 					s = sl.get(listView.getSelectionModel().getSelectedIndex());
 					ol.remove(s); // force on-change event to trigger
 					s.name = name;
 					s.artist = artist;
+					s.album = album;
+					s.year = year;
 					ol.add(s); // force on-change event to trigger
 					
 				}
