@@ -68,6 +68,10 @@ public class ListController {
 				detailBox,
 				editButton, editToolbar,
 				ol, sl);
+		detailName.editableProperty().bind(
+				editToolbar.visibleProperty());
+		detailArtist.editableProperty().bind(
+				editToolbar.visibleProperty());
 		listView.disableProperty().bind(
 				listView.getSelectionModel().
 					selectedIndexProperty().
@@ -87,9 +91,9 @@ public class ListController {
 		Song selectedSong = listView.getSelectionModel().getSelectedItem();
 		if (null!=selectedSong) {
 			detailName.setText(selectedSong.name);
-			detailName.setEditable(false);
+//			detailName.setEditable(false);
 			detailArtist.setText(selectedSong.artist);
-			detailArtist.setEditable(false);
+//			detailArtist.setEditable(false);
 		}
 	}
 }

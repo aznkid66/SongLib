@@ -70,11 +70,11 @@ public class ButtonListeners {
 	
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				for (Node detail : detailBox.getChildren()) {
-					if (detail instanceof TextField) {
-						((TextField)detail).setEditable(true);
-					}
-				}
+//				for (Node detail : detailBox.getChildren()) {
+//					if (detail instanceof TextField) {
+//						((TextField)detail).setEditable(true);
+//					}
+//				}
 				editButton.setVisible(false);
 				editToolbar.setVisible(true);
 			}
@@ -89,14 +89,23 @@ public class ButtonListeners {
 			ObservableList<Song> ol, SortedList<Song> sl) {
 		b.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
+				// check if (name, artist) pair already exists
+				String name = detailName.getText();
+				String artist = detailArtist.getText();
+//				if (sl.filtered()) {
+//					
+//				}
 				Song s;
 				if (listView.getSelectionModel().getSelectedIndex()==-1) {
-					s = new Song(detailName.getText(), detailArtist.getText());
+					s = new Song(name, artist);
 					ol.add(s);
 				} else {
 					s = sl.get(listView.getSelectionModel().getSelectedIndex());
-					s.name = detailName.getText();
-					s.artist = detailArtist.getText();
+					ol.remove(s); // force on-change event to trigger
+					s.name = name;
+					s.artist = artist;
+					ol.add(s); // force on-change event to trigger
+					
 				}
 
 				listView.getSelectionModel().clearAndSelect(sl.indexOf(s));
@@ -114,8 +123,8 @@ public class ButtonListeners {
 		for (Node detail : box.getChildren()) {
 			if (detail instanceof TextField) {
 				((TextField)detail).clear();
-				detail.setDisable(!isEditable);
-				((TextField)detail).setEditable(isEditable);
+//				detail.setDisable(!isEditable);
+//				((TextField)detail).setEditable(isEditable);
 			}
 		}
 	}
