@@ -19,7 +19,7 @@ public class FileIO {
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 		    String line;
 		    while ((line = br.readLine()) != null) {
-		    	String[] args = line.split("\\t");
+		    	String[] args = line.split("\\t", -1);
 	    		ret.add(new Song(args[0], 
 	    						 args[1], 
 	    						 args[2], 
